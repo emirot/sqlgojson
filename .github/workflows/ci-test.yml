@@ -40,7 +40,7 @@ jobs:
         run: migrate -path db/migration -database "postgresql://root:test@localhost:5432/sqljson?sslmode=disable" -verbose up
       - run: go test -v ./...
   mysqltest:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     services:
       mysql:
         image: mysql:5.7
