@@ -1,3 +1,5 @@
+![example workflow](https://github.com/emirot/sqlgojson/actions/workflows/ci-test/badge.svg)
+
 # sqlgojson
 
 Returns JSON from *sql.Rows
