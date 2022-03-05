@@ -1,4 +1,4 @@
-![example workflow](https://github.com/emirot/sqlgojson/actions/workflows/ci-test/badge.svg)
+![Build](https://github.com/emirot/sqlgojson/actions/workflows/ci-test.yml/badge.svg)
 
 # sqlgojson
 
