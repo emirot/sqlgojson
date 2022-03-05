@@ -3,8 +3,6 @@ package sqlgojson
 import (
 	"database/sql"
 	"encoding/json"
-
-	_ "github.com/lib/pq"
 )
 
 func SqlGoJson(rows *sql.Rows) (string, error) {

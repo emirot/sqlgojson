@@ -4,8 +4,8 @@ CREATE TABLE IF NOT EXISTS users (
     created_at TIMESTAMP DEFAULT NULL
 );
 
-INSERT INTO users values (1, 'nolan', '2017-07-01T14:59:55.711Z');
-INSERT INTO users values (2, 'test', '2017-07-01T15:59:55.711Z');
+INSERT INTO users values (1, 'nolan', '2017-07-01T14:59:55');
+INSERT INTO users values (2, 'test', '2017-07-01T15:59:55');
 INSERT INTO users values (3, 'test', null);
 
 CREATE TABLE IF NOT EXISTS test (
