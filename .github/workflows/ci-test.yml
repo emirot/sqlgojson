@@ -55,7 +55,6 @@ jobs:
           sudo /etc/init.d/mysql start
           mysql -e 'CREATE DATABASE sqljson;' -uroot -proot
           mysql -e 'SHOW DATABASES;' -uroot -proot
-    steps:
       - uses: actions/checkout@v2
       - name: Setup go
         uses: actions/setup-go@v2
