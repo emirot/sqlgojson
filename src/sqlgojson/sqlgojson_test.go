@@ -4,6 +4,9 @@ import (
 	"database/sql"
 	"fmt"
 	"testing"
+
+	_ "github.com/go-sql-driver/mysql"
+	_ "github.com/lib/pq"
 )
 
 func queryPostgresql(query string) (*sql.Rows, error) {
@@ -23,6 +26,42 @@ func queryPostgresql(query string) (*sql.Rows, error) {
 		panic(err)
 	}
 	return rows, err
+}
+
+func queryMysql(query string) (*sql.Rows, error) {
+	connStr := "root:root@/sqljson"
+	db, err := sql.Open("mysql", connStr)
+	if err != nil {
+		panic(err)
+	}
+	defer db.Close()
+	err = db.Ping()
+	if err != nil {
+		panic(err)
+	}
+	fmt.Printf("\nSuccessfully connected to database \n")
+	rows, err := db.Query(query)
+	if err != nil {
+		panic(err)
+	}
+	return rows, err
+}
+
+func TestMysqlTable(t *testing.T) {
+	rows, err := queryMysql("SELECT * from test;")
+	if err != nil {
+		panic(err)
+	}
+	res, err := SqlGoJson(rows)
+	if err != nil {
+		panic(err)
+	}
+	expected := `[[{"id":1},{"num":3.14},{"b":true}],[{"id":2},{"num":4.014},{"b":false}]]`
+	fmt.Println(res, expected)
+	if res != expected {
+		t.Errorf("Failed")
+	}
+	fmt.Printf("rep:%v", res)
 }
 
 func TestUserTable(t *testing.T) {
