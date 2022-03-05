@@ -19,6 +19,9 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
+        ports:
+         - 5432:5432
+
     strategy:
       matrix:
         go: [ '1.16', '1.17' ]
@@ -29,4 +32,10 @@ jobs:
         uses: actions/setup-go@v2
         with:
           go-version: ${{ matrix.go }}
+      - name: Install go migrate
+        run: | 
+          curl -L https://github.com/golang-migrate/migrate/releases/download/v4.15.1/migrate.linux-amd64.tar.gz | tar xvz
+          sudo mv migrate.linux-amd64 /usr/bin/
+      - name: Run migration
+        run: migrate -path db/migration -database "postgresql://root:test@localhost:5432/sqljson?sslmode=disable" -verbose up
       - run: go test -v ./...
