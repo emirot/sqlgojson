@@ -25,7 +25,7 @@ func queryPostgresql() (*sql.Rows, error) {
 	return rows, err
 }
 
-func TestAddingNumber(t *testing.T) {
+func TestUserTable(t *testing.T) {
 	rows, err := queryPostgresql()
 	if err != nil {
 		panic(err)
