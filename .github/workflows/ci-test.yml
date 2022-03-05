@@ -39,7 +39,7 @@ jobs:
       - name: Run migration
         run: migrate -path db/migration -database "postgresql://root:test@localhost:5432/sqljson?sslmode=disable" -verbose up
       - run: go test -v ./...
-  mysql:
+  mysqltest:
     runs-on: ubuntu-latest
     services:
       mysql:
@@ -52,10 +52,10 @@ jobs:
         ports:
           - 33306:3306
         options: --health-cmd="mysqladmin ping" -
-      strategy:
-        matrix:
-          go: [ '1.16', '1.17' ]
-      name: Go ${{ matrix.go }} sample
+    strategy:
+     matrix:
+      go: [ '1.16', '1.17' ]
+    name: Go ${{ matrix.go }} sample
       steps:
         - uses: actions/checkout@v2
         - name: Setup go
