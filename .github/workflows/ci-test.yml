@@ -65,5 +65,5 @@ jobs:
           curl -L https://github.com/golang-migrate/migrate/releases/download/v4.15.1/migrate.linux-amd64.tar.gz | tar xvz;
           sudo mv migrate /usr/bin/migrate
       - name: Run migration
-        run: migrate -path db/migration -database "mysql://root:test@localhost:3306/sqljson" -verbose up
+        run: migrate -path db/migration -database "mysql://root:test@tcp(localhost:3306)/sqljson" -verbose up
       - run: go test -v ./...
