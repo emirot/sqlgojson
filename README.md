@@ -1,6 +1,8 @@
 # sqlgojson
-JSON for SQL rows
 
+Returns JSON from SQL *rows
+
+- postgresql only
 
 ## Installation
 
