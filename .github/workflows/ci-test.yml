@@ -40,22 +40,21 @@ jobs:
         run: migrate -path db/migration -database "postgresql://root:test@localhost:5432/sqljson?sslmode=disable" -verbose up
       - run: go test -v ./...
   mysqltest:
-    runs-on: ubuntu-18.04
-    services:
-      mysql:
-        image: mysql:5.7
-        env:
-          MYSQL_DATABASE: sqljson
-          MYSQL_USER: root
-          MYSQL_PASSWORD: root
-          MYSQL_ROOT_PASSWORD: test
-        ports:
-          - 3306:3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+    runs-on: ubuntu-latest
     strategy:
      matrix:
       go: [ '1.16', '1.17' ]
     name: Go ${{ matrix.go }} sample
+    env:
+      DB_DATABASE: sqljson
+      DB_USER: root
+      DB_PASSWORD: 'root'
+      DB_HOST: localhost
+    steps:
+      - run: |
+          sudo /etc/init.d/mysql start
+          mysql -e 'CREATE DATABASE sqljson;' -uroot -proot
+          mysql -e 'SHOW DATABASES;' -uroot -proot
     steps:
       - uses: actions/checkout@v2
       - name: Setup go
