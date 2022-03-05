@@ -1,6 +1,6 @@
 # sqlgojson
 
-Returns JSON from SQL *rows
+Returns JSON from *sql.Rows
 
 - postgresql only
 
