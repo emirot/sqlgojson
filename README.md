@@ -1,6 +1,10 @@
-# sqlgojson
-JSON for SQL rows
+![Build](https://github.com/emirot/sqlgojson/actions/workflows/ci-test.yml/badge.svg)
 
+# sqlgojson
+
+Returns JSON from *sql.Rows
+
+- postgresql only
 
 ## Installation
 
