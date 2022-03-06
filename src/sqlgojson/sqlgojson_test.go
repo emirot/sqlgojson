@@ -74,7 +74,7 @@ func TestUserTable(t *testing.T) {
 	if err != nil {
 		panic(err)
 	}
-	if res != `[[{"id":1},{"name":"nolan"},{"created_at":"2017-07-01T14:59:55.711Z"}],[{"id":2},{"name":"test"},{"created_at":"2017-07-01T15:59:55.711Z"}],[{"id":3},{"name":"test"},{"created_at":null}]]` {
+	if res != `[[{"id":1},{"name":"nolan"},{"created_at":"2017-07-01T14:59:55"}],[{"id":2},{"name":"test"},{"created_at":"2017-07-01T15:59:55"}],[{"id":3},{"name":"test"},{"created_at":null}]]` {
 		t.Errorf("Failed")
 	}
 	fmt.Printf("rep:%v", res)
