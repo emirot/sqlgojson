@@ -38,4 +38,6 @@ jobs:
           sudo mv migrate /usr/bin/migrate
       - name: Run migration
         run: migrate -path db/migration -database "postgresql://root:test@localhost:5432/sqljson?sslmode=disable" -verbose up
-      - run: go test -v ./...
+      - run: go test -v  -coverprofile=coverage.txt -covermode=atomic ./... 
+      - name: Upload coverage to Codecov
+        run: bash <(curl -s https://codecov.io/bash)
