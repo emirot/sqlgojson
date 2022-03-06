@@ -56,7 +56,8 @@ func TestMysqlTable(t *testing.T) {
 	if err != nil {
 		panic(err)
 	}
-	expected := `[[{"id":1},{"num":3.14},{"b":true}],[{"id":2},{"num":4.014},{"b":false}]]`
+	// mysql doesn't have boolean type and use TinyINT instead.
+	expected := `[[{"id":1},{"num":3.14},{"b":1}],[{"id":2},{"num":4.014},{"b":0}]]`
 	fmt.Println(res, expected)
 	if res != expected {
 		t.Errorf("Failed")
