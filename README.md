@@ -11,3 +11,10 @@ Returns JSON from *sql.Rows
 ```
 go get github.com/emirot/sqlgojson@v1.0.0
 ```
+
+
+### Why this project?
+
+I wanted to get JSON return from the database whithout having a struct already defined.  
+I found couple of examples online but no library.  
+I took those ideas and added some tests and automations and make it a library.  
