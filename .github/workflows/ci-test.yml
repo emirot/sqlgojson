@@ -1,13 +1,53 @@
-name: Build
+name: CI
 on: push
 jobs:
-  build:
+  postgres13:
     runs-on: ubuntu-latest
     services:
     # Label used to access the service container
       postgres:
         # Docker Hub image
         image: postgres:13
+        # Provide the password for postgres
+        env:
+          POSTGRES_USER: root
+          POSTGRES_PASSWORD: test
+          POSTGRES_DB: sqljson
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+         - 5432:5432
+
+    strategy:
+      matrix:
+        go: [ '1.16', '1.17' ]
+    name: Go ${{ matrix.go }} sample
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup go
+        uses: actions/setup-go@v2
+        with:
+          go-version: ${{ matrix.go }}
+      - name: Install go migrate
+        run: | 
+          curl -L https://github.com/golang-migrate/migrate/releases/download/v4.15.1/migrate.linux-amd64.tar.gz | tar xvz;
+          sudo mv migrate /usr/bin/migrate
+      - name: Run migration
+        run: migrate -path db/migration -database "postgresql://root:test@localhost:5432/sqljson?sslmode=disable" -verbose up
+      - run: go test -v  -coverprofile=coverage.txt -covermode=atomic ./... 
+      - name: Upload coverage to Codecov
+        run: bash <(curl -s https://codecov.io/bash)
+  postgres14:
+    runs-on: ubuntu-latest
+    services:
+    # Label used to access the service container
+      postgres:
+        # Docker Hub image
+        image: postgres:14
         # Provide the password for postgres
         env:
           POSTGRES_USER: root
